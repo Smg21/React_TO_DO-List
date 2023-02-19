@@ -27,7 +27,24 @@ export default class App extends React.Component {
     }
   }
 
-  
+  //Submit handle Event
+  handleAdd = ()=> {
+
+      const newTodo = {
+        task: "Grocery Shopping",
+        id: Date.now(),
+        completed:false
+      };
+
+    this.setState({
+      ...this.state,
+      
+
+    });
+  }
+
+
+  //Clear Handle (Dont mess with below as it all works)
   handleClear = ()=> {
     //console.log("clear clicked");
     
