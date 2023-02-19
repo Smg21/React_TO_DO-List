@@ -11,7 +11,7 @@ export default class App extends React.Component {
         {
           task:'Finish Module 19',
           id:1234,
-          completed: false
+          completed: true
         },
         {
           task:'Vacuum Floors',
@@ -26,6 +26,17 @@ export default class App extends React.Component {
       ]
     }
   }
+
+  handleClear = ()=> {
+    //console.log("clear clicked");
+    
+    this.setState({
+      ...this.state,
+      todos: this.state.todos.filter(todo => {
+        return(todo.completed === false);
+      })
+    });
+  }
   render() {
     const { todos } = this.state;
     return (
@@ -33,9 +44,7 @@ export default class App extends React.Component {
         <h1>TODOS</h1>
         <TodoList todos={todos}/>
         <Form />
-
-       
-          <button>Clear a Todo</button>
+          <button onClick={this.handleClear}>Clear Completed Todo Tasks</button>
       </div>
     )
   }
