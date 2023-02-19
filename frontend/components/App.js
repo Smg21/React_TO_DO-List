@@ -11,7 +11,7 @@ export default class App extends React.Component {
         {
           task:'Finish Module 19',
           id:1234,
-          completed: true
+          completed: false
         },
         {
           task:'Vacuum Floors',
@@ -28,10 +28,10 @@ export default class App extends React.Component {
   }
 
   //Submit handle Event
-  handleAdd = ()=> {
+  handleAdd = (task)=> {
 
       const newTodo = {
-        task: "Grocery Shopping",
+        task: task,
         id: Date.now(),
         completed:false
       };
