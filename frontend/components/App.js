@@ -56,6 +56,27 @@ export default class App extends React.Component {
     });
   }
 
+  //inserting new event for todo
+  handleToggle = () => {
+    const id = 1234;
+
+    this.setState({
+      ...this.state,
+      todos: this.state.todos.map(todo => {
+        if (todo.id === clickedId){
+          return{
+            ...todo,
+            completed: !todo.completed
+          }
+        }
+          return todo;
+        
+      })
+    });
+
+
+  }
+
 
   render() {
     const { todos } = this.state;
