@@ -62,8 +62,8 @@ export default class App extends React.Component {
     return (
       <div>
         <h1>TODOS</h1>
-        <TodoList handleAdd={this.handleAdd} todos={todos}/>
-        <Form />
+        <TodoList todos={todos}/>
+        <Form handleAdd={this.handleAdd}/>
           <button onClick={this.handleClear}>Clear Completed Todo Tasks</button>
       </div>
     )
