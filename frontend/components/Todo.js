@@ -4,7 +4,7 @@ export default class Todo extends React.Component {
 
   handleClick = () => {
     //console.log("handl click", this.props.todo (or id));
-    this.props.handleToggle();
+    this.props.handleToggle(this.props.todo.id);
   }
 
   render() {

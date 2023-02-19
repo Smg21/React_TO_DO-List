@@ -57,8 +57,7 @@ export default class App extends React.Component {
   }
 
   //inserting new event for todo
-  handleToggle = () => {
-    const id = 1234;
+  handleToggle = (clickedId) => {
 
     this.setState({
       ...this.state,
@@ -83,7 +82,7 @@ export default class App extends React.Component {
     return (
       <div>
         <h1>TODOS</h1>
-        <TodoList todos={todos}/>
+        <TodoList handleToggle={this.handleToggle} todos={todos}/>
         <Form handleAdd={this.handleAdd}/>
           <button onClick={this.handleClear}>Clear Completed Todo Tasks</button>
       </div>
