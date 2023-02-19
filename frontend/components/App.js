@@ -27,6 +27,7 @@ export default class App extends React.Component {
     }
   }
 
+  
   handleClear = ()=> {
     //console.log("clear clicked");
     
@@ -37,6 +38,8 @@ export default class App extends React.Component {
       })
     });
   }
+
+
   render() {
     const { todos } = this.state;
     return (
@@ -49,6 +52,3 @@ export default class App extends React.Component {
     )
   }
 }
- 
-
-
