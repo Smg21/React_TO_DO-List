@@ -38,7 +38,7 @@ export default class App extends React.Component {
 
     this.setState({
       ...this.state,
-      
+      todos: [...this.state.todos, newTodo]
 
     });
   }
@@ -62,7 +62,7 @@ export default class App extends React.Component {
     return (
       <div>
         <h1>TODOS</h1>
-        <TodoList todos={todos}/>
+        <TodoList handleAdd={this.handleAdd} todos={todos}/>
         <Form />
           <button onClick={this.handleClear}>Clear Completed Todo Tasks</button>
       </div>
