@@ -1,91 +1,99 @@
-import React from 'react'
+import React, { Component } from 'react';
 import TodoList from './TodoList';
 import Form from './Form';
+import CurrentTime from './CurrentTime';
 
-
-export default class App extends React.Component {
-  constructor(){
+export default class App extends Component {
+  constructor() {
     super();
     this.state = {
-      todos: [
-        {
-          task:'Finish Module 19',
-          id:1234,
-          completed: false
-        },
-        {
-          task:'Vacuum Floors',
-          id:2345,
-          completed:false
-        },
-        {
-          task:'Put Laundry Away',
-          id:3456,
-          completed:false
-        }
-      ]
-    }
+      selectedDay: 'Sunday',
+      daysOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      todos: {
+        Sunday: [],
+        Monday: [],
+        Tuesday: [],
+        Wednesday: [],
+        Thursday: [],
+        Friday: [],
+        Saturday: [],
+      },
+    };
   }
 
-  //Submit handle Event
-  handleAdd = (task)=> {
-
-      const newTodo = {
-        task: task,
-        id: Date.now(),
-        completed:false
-      };
+  handleAdd = (task) => {
+    const { selectedDay, todos } = this.state;
+    const newTodo = {
+      task: task,
+      id: Date.now(),
+      completed: false,
+    };
 
     this.setState({
-      ...this.state,
-      todos: [...this.state.todos, newTodo]
-
+      todos: {
+        ...todos,
+        [selectedDay]: [...todos[selectedDay], newTodo],
+      },
     });
-  }
+  };
 
+  handleClear = () => {
+    const { selectedDay, todos } = this.state;
 
-  //Clear Handle (Dont mess with below as it all works)
-  handleClear = ()=> {
-    //console.log("clear clicked");
-    
     this.setState({
-      ...this.state,
-      todos: this.state.todos.filter(todo => {
-        return(todo.completed === false);
-      })
+      todos: {
+        ...todos,
+        [selectedDay]: todos[selectedDay].filter((todo) => !todo.completed),
+      },
     });
-  }
+  };
 
-  //inserting new event for todo
   handleToggle = (clickedId) => {
+    const { selectedDay, todos } = this.state;
 
     this.setState({
-      ...this.state,
-      todos: this.state.todos.map(todo => {
-        if (todo.id === clickedId){
-          return{
-            ...todo,
-            completed: !todo.completed
+      todos: {
+        ...todos,
+        [selectedDay]: todos[selectedDay].map((todo) => {
+          if (todo.id === clickedId) {
+            return {
+              ...todo,
+              completed: !todo.completed,
+            };
           }
-        }
           return todo;
-        
-      })
+        }),
+      },
     });
+  };
 
-
-  }
-
+  handleDayChange = (day) => {
+    this.setState({
+      selectedDay: day,
+    });
+  };
 
   render() {
-    const { todos } = this.state;
+    const { selectedDay, daysOfWeek, todos } = this.state;
     return (
       <div>
         <h1>TODOS</h1>
-        <TodoList handleToggle={this.handleToggle} todos={todos}/>
-        <Form handleAdd={this.handleAdd}/>
-          <button onClick={this.handleClear}>Clear Completed Todo Tasks</button>
+        <div>
+          {daysOfWeek.map((day) => (
+            <button
+              key={day}
+              onClick={() => this.handleDayChange(day)}
+              className={day === selectedDay ? 'active-day' : ''}
+            >
+              {day}
+            </button>
+          ))}
+        </div>
+        <TodoList handleToggle={this.handleToggle} todos={todos[selectedDay]} />
+        <Form handleAdd={this.handleAdd} />
+        <button onClick={this.handleClear}>Clear Completed Todo Tasks</button>
+        <CurrentTime />
       </div>
-    )
+    );
   }
 }
